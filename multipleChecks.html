@@ -81,18 +81,17 @@
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     let previousCheckbox;
     let currentCheckbox;
+    const checkboxArray = Array.from(checkboxes);
     const handleCheck = (e) => {
       previousCheckbox = currentCheckbox;
       currentCheckbox = e.target;
-      if (e.shiftKey && previousCheckbox) {
-        let isInSubset = false;
-        checkboxes.forEach(checkbox => {
-          if (checkbox == currentCheckbox || checkbox == previousCheckbox) {
-            isInSubset = !isInSubset;
-          }
-          if (isInSubset || checkbox == currentCheckbox || checkbox == previousCheckbox) {
-            checkbox.checked = currentCheckbox.checked;
-          }
+      if (e.shiftKey) {
+        let previousIndex = checkboxArray.indexOf(previousCheckbox);
+        let currentIndex = checkboxArray.indexOf(currentCheckbox);
+        let subset = checkboxArray.slice(Math.min(previousIndex, currentIndex), 
+                                          Math.max(previousIndex, currentIndex) + 1);
+        subset.forEach(checkbox => {
+          checkbox.checked = currentCheckbox.checked;
         })
       }
     }
