@@ -101,9 +101,9 @@ let lastChecked;
 
 function handleCheck(e) {
   // Check if they had the shift key down
-  // AND check that they are checking it
+  // AND that a checkbox has been previously clicked
   let inBetween = false;
-  if (e.shiftKey && this.checked && lastChecked) {
+  if (e.shiftKey && lastChecked) {
     // go ahead and do what we please
     // loop over every single checkbox
     checkboxes.forEach(checkbox => {
@@ -112,9 +112,11 @@ function handleCheck(e) {
         inBetween = !inBetween;
         console.log('Starting to check them in between!');
       }
-
-      if (inBetween) {
-        checkbox.checked = true;
+      // check that inBetween is still true, OR if the current checkbox is the last checked
+      if (inBetween || checkbox === lastChecked) {
+        // set all in-between checkboxes to the same status as the current checkbox
+        // This allows for multiple checks AND multiple unchecks
+        checkbox.checked = this.checked;
       }
     });
   }
