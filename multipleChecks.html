@@ -82,22 +82,21 @@
     let previousCheckbox;
     let currentCheckbox;
     const checkboxArray = Array.from(checkboxes);
-    const handleCheck = (e) => {
+    const handleCheck = (e, i) => {
       previousCheckbox = currentCheckbox;
-      currentCheckbox = e.target;
+      currentCheckbox = {box:e.target, i};
       if (e.shiftKey) {
-        let previousIndex = checkboxArray.indexOf(previousCheckbox);
-        let currentIndex = checkboxArray.indexOf(currentCheckbox);
-        let subset = checkboxArray.slice(Math.min(previousIndex, currentIndex), 
-                                          Math.max(previousIndex, currentIndex) + 1);
+        // let previousIndex = checkboxArray.indexOf(previousCheckbox);
+        let subset = checkboxArray.slice(Math.min(previousCheckbox.i, i), 
+                                          Math.max(previousCheckbox.i, i) + 1);
         subset.forEach(checkbox => {
-          checkbox.checked = currentCheckbox.checked;
+          checkbox.checked = currentCheckbox.box.checked;
         })
       }
     }
     
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('click', handleCheck)
+    checkboxes.forEach((checkbox, i) => {
+      checkbox.addEventListener('click', (e) => handleCheck(e, i))
     })
     
   </script>
