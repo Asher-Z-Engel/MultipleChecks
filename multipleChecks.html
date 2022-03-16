@@ -86,7 +86,6 @@
       previousCheckbox = currentCheckbox;
       currentCheckbox = {box:e.target, i};
       if (e.shiftKey) {
-        // let previousIndex = checkboxArray.indexOf(previousCheckbox);
         let subset = checkboxArray.slice(Math.min(previousCheckbox.i, i), 
                                           Math.max(previousCheckbox.i, i) + 1);
         subset.forEach(checkbox => {
